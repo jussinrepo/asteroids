@@ -255,9 +255,9 @@ class InfoScreen:
         self.title_font = pygame.font.Font(None, 36)
         self.info1_text = [
             "CONTROLS:",
-            "Arrow keys - Move ship",
+            "Arrow or WAD keys - Move ship",
             "No braking in vacuum!",
-            "Space - Shoot",
+            "Space or LCtrl - Shoot",
             "P - Pause game",
             "ESC - Exit to menu",
             "",

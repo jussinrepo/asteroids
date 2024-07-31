@@ -77,9 +77,14 @@ MINE_EXPLOSION_PARTICLES = 80  # Increase particles for a denser effect
 MINE_EXPLOSION_COLORS = [(255, 255, 255), (255, 0, 0), (200, 0, 0), (170, 0, 0)]
 
 # Boss variables
-BOSSASTEROID_HEALTH = 20
+BOSSASTEROID_HEALTH = 40
+BOSSASTEROID_SHOOT_CHANCE = 0.02 # 2% chance to shoot a splinter each frame
 BOSSCHASER_HEALTH = 20
+BOSSCHASER_SPEED = 4 
+BOSSCHASER_TURNRATE = 0.02 # Adjust this to control how quickly it can turn
 GRAVITYWELLBOSS_HEALTH = 25
+GRAVITYWELLBOSS_PULL_STRENGTH = 0.1 # the strength of the gravitational pull
+GRAVITYWELLBOSS_PULL_RADIUS = 340 # distance of the pull
 OCTOBOSS_HEALTH = 30
 OCTOBOSS_SPEED = 0.2 # default rotation speed
 OCTOBOSS_APPENDAGE_COUNT = 7 # seven appendages

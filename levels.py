@@ -31,7 +31,7 @@ class LevelManager:
         # POWERUP_RATES: "None", "Scarce", "Rare", "Common", "Abundant"
         self.levels = [
             # Level([3, 0, 0, 0, 0], "None", "None", "None", "Abundant"),                 # Level 1
-            Level([3, 0, 0, 0, 0], "None", "Rampant", "Rampant", "Abundant"),                 # Level 1
+            Level([3, 0, 0, 0, 0], "None", "None", "None", "Abundant"),                 # Level 1
             Level([0, 2, 0, 0, 0], "None", "None", "None", "Abundant"),                 # Level 2
             Level([2, 2, 0, 0, 0], "None", "None", "None", "Common"),                   # Level 3
             Level([0, 0, 2, 0, 0], "None", "None", "None", "Rare"),                     # Level 4

@@ -11,7 +11,9 @@ Modules:
 - menus.py: Handles the main menu logic.
 - player.py: Manages the player's ship, ship's death and bullets fired by the player.
 - powerups.py: Manages different power-ups that the player can pick up to gain bonuses, such as Triple Shot or Shield.
-- utils.py: Contains utility functions such as particle effects and all game constants.
+- sound.py: Contains all the sound functions of the game.
+- soundplayer.py: Tool to try out different sounds. NOT part of the game.
+- utils.py: Contains utility functions such as particle effects and all game constants/variables.
 """
 
 # Import Python modules
@@ -215,7 +217,7 @@ def main():
                 scale_factor = min(WIDTH / BASE_WIDTH, HEIGHT / BASE_HEIGHT)
             elif event.type == pygame.KEYDOWN:
                 if game_state == PLAYING:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_SPACE or event.key == pygame.K_LCTRL:
                         new_bullets = ship.shoot(pygame.time.get_ticks())
                         bullets.extend(new_bullets)
                     elif event.key == pygame.K_p:
@@ -236,17 +238,18 @@ def main():
 
     def handle_player_input():
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             ship.rotate(SHIP_TURN_SPEED)
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             ship.rotate(-SHIP_TURN_SPEED)
-        if keys[pygame.K_UP]:
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
             ship.thrust()
-        if keys[pygame.K_SPACE] and ship.rapid_fire:
+        if (keys[pygame.K_SPACE] or keys[pygame.K_LCTRL]) and ship.rapid_fire:
+        # if keys[pygame.K_SPACE] and ship.rapid_fire:
             new_bullets = ship.shoot(pygame.time.get_ticks())
             bullets.extend(new_bullets)
 
-    # Update each game object on screen each frame
+    # Update each game object on screen each frame 
     def update_game_objects():
         ship.move()
         
@@ -648,6 +651,7 @@ def main():
                     collision_point = (bullet.x, bullet.y)
                     splinter = boss.shoot_splinter(collision_point, ship)
                     splinters.append(splinter)
+                    boss.increase_splinter_rate() # more splinter chance every time it gets hurt
                 score += 5
                 particle_system.add_particles(bullet.x, bullet.y, RED, 20, (0.5, 1), (1, 2), (120, 180))
             bullets.remove(bullet)

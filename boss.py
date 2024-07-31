@@ -5,9 +5,10 @@ This module contains classes for boss enemies.
 It handles boss behaviors, boss types, movement, and interactions with other game objects.
 
 Current Boss type:
-- BossAsteroid: A huge asteroid that floats in the center of the screen, shooting player with splinters randomly and when player hits the asteroid with bullets
-- BossChaser: A rocket shaped enemy that constantly flies towards the player ship, trying to collide with it
-- GravityWellBoss: A black hole sucking in player ship and asteroids, getting stronger the damage it takes
+- BossAsteroid: A huge asteroid that floats in the center of the screen, shooting player with splinters randomly and when player hits the asteroid with bullets.
+- BossChaser: A rocket shaped enemy that constantly flies towards the player ship, trying to collide with it.
+- GravityWellBoss: A black hole sucking in player ship and asteroids, getting stronger the more damage it takes.
+- OctoBoss: A seven tentacle boss shooting bubbles. Player needs to kill appendages first to be able to hurt the boss. Appendages regenerate after time and when vulnerable, the boss shoots lasers as well. Good luck!
 
 Related Modules:
 - player.py: Manages the player's ship and bullets.
@@ -17,7 +18,6 @@ Related Modules:
 
 import pygame
 import random
-import utils
 
 from utils import *
 from sound import octoboss_bubble_sound
@@ -44,9 +44,9 @@ class Boss(GameObject):
 class BossChaser(Boss):
     def __init__(self):
         super().__init__(BASE_WIDTH // 2, BASE_HEIGHT // 2, 40, BOSSCHASER_HEALTH)  # Adjust size and health as needed
-        self.speed = 3
+        self.speed = BOSSCHASER_SPEED
         self.direction = random.uniform(0, 2 * math.pi)
-        self.turn_speed = 0.02  # Adjust this to control how quickly it can turn
+        self.turn_speed = BOSSCHASER_TURNRATE
 
     def update(self, ship):
         # Calculate target direction towards the ship
@@ -162,6 +162,7 @@ class BossAsteroid(Boss):
         super().__init__(BASE_WIDTH // 2, BASE_HEIGHT // 2, 80, BOSSASTEROID_HEALTH)  # Adjust size and health as needed
         self.rotation = 0
         self.rotation_speed = 0.5
+        self.shoot_chance = BOSSASTEROID_SHOOT_CHANCE
         self.shape = self.generate_shape()
 
     def generate_shape(self):
@@ -175,10 +176,13 @@ class BossAsteroid(Boss):
             shape.append((x, y))
         return shape
 
+    def increase_splinter_rate(self):
+        self.shoot_chance += 0.0025 # slight increase per every hit the boss takes
+
     def update(self, ship, splinters):
         self.rotation += self.rotation_speed
         self.rotation %= 360
-        if random.random() < 0.02:  # 2% chance to shoot a splinter each frame
+        if random.random() < self.shoot_chance:  
             splinters.append(self.shoot_splinter((self.x, self.y), ship))
 
     def draw(self, screen):
@@ -234,8 +238,8 @@ class Splinter(GameObject):
 class GravityWellBoss(Boss):
     def __init__(self):
         super().__init__(BASE_WIDTH // 2, BASE_HEIGHT // 2, 60, GRAVITYWELLBOSS_HEALTH)  # x, y, size, health
-        self.pull_strength = 0.1 # the strength of the gravitational pull 
-        self.pull_radius = 340 # distance of the pull
+        self.pull_strength = GRAVITYWELLBOSS_PULL_STRENGTH 
+        self.pull_radius = GRAVITYWELLBOSS_PULL_RADIUS 
         self.rotation = 0
         self.rotation_speed = 0.5
         self.shape = self.generate_shape()
