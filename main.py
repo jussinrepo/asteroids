@@ -109,7 +109,7 @@ def main():
 
         if sound_state.on:
             pygame.mixer.stop()  # Stop playing the main theme
-        
+                
         ufo = None
         ufo_bullets = []
         ufo_spawn_timer = 180
@@ -224,6 +224,10 @@ def main():
                         game_state = PAUSED
                     elif event.key == pygame.K_ESCAPE:
                         new_acronym = True
+                        if sound_state.on: # Kill all looping sounds
+                            comet_rumble.stop()
+                            gravity_well_rumble.stop()
+                            rocket_boss_swoosh.stop()
                         WIDTH, HEIGHT = pygame.display.get_window_size()
                         scale_factor = min(WIDTH / BASE_WIDTH, HEIGHT / BASE_HEIGHT)
                         game_state = MENU
@@ -231,6 +235,10 @@ def main():
                     game_state = PLAYING
                 elif game_state == GAME_OVER and pygame.time.get_ticks() - game_over_timer >= 2000:
                     new_acronym = True
+                    if sound_state.on: # Kill all looping sounds
+                        comet_rumble.stop()
+                        gravity_well_rumble.stop()
+                        rocket_boss_swoosh.stop()
                     WIDTH, HEIGHT = pygame.display.get_window_size()
                     scale_factor = min(WIDTH / BASE_WIDTH, HEIGHT / BASE_HEIGHT)
                     game_state = MENU
@@ -644,6 +652,12 @@ def main():
             if boss.hit(bullet.damage):
                 score += 500
                 explosions.append(Explosion(boss.x, boss.y, boss.size * 2))
+                if sound_state.on:
+                    if isinstance(boss, GravityWellBoss):
+                        gravity_well_rumble.stop()
+                    if isinstance(boss, BossChaser):
+                        rocket_boss_swoosh.stop()
+                    boss_explosion_sound.play()
                 boss_dead = True
                 boss = None
             else:
@@ -652,6 +666,8 @@ def main():
                     splinter = boss.shoot_splinter(collision_point, ship)
                     splinters.append(splinter)
                     boss.increase_splinter_rate() # more splinter chance every time it gets hurt
+                    if sound_state.on:
+                        boss_asteroid_shrapnel.play()
                 score += 5
                 particle_system.add_particles(bullet.x, bullet.y, RED, 20, (0.5, 1), (1, 2), (120, 180))
             bullets.remove(bullet)
@@ -975,6 +991,12 @@ def main():
                     text = font.render("GAME OVER", True, RED)
                     if sound_state.on:
                         game_over_sound.play()  # Play the game over sound
+                        if comet:
+                            comet_rumble.stop()
+                        if isinstance(boss, GravityWellBoss):
+                            gravity_well_rumble.stop()
+                        if isinstance(boss, BossChaser):
+                            rocket_boss_swoosh.stop()
 
                 # Clear the game surface, Draw the game on the game surface and Scale and blit the game surface onto the screen
                 game_surface.fill(BLACK)

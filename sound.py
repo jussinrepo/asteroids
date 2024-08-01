@@ -113,6 +113,16 @@ def create_mine_explosion_sound():
     stereo_waveform = np.column_stack((waveform, waveform))
     return pygame.sndarray.make_sound(stereo_waveform)
 
+# Boss explosion
+def create_boss_explosion_sound():
+    duration = 2  # 2 seconds
+    samples = int(44100 * duration)
+    t = np.linspace(0, duration, samples, False)
+    waveform = np.random.normal(0, 2, samples) * np.exp(-t * 4.5)
+    waveform = np.int16(waveform * 32767)
+    stereo_waveform = np.column_stack((waveform, waveform))
+    return pygame.sndarray.make_sound(stereo_waveform)
+
 # Powerup created
 def create_powerup_sound():
     sweep = np.linspace(300, 1200, 4410)
@@ -185,6 +195,36 @@ def create_octoboss_bubble():
     stereo_sound = np.column_stack((sound, sound))
     return pygame.sndarray.make_sound(stereo_sound)
 
+# Gravity Well Boss sound
+def create_gravity_well_rumble():
+    duration = 3.0
+    t = np.linspace(0, duration, int(44100 * duration), False)
+    rumble = np.sin(2 * np.pi * 40 * t) + 0.5 * np.sin(2 * np.pi * 80 * t)
+    rumble *= np.random.normal(1, 0.1, int(44100 * duration))
+    sound = np.int16(rumble * 16383)
+    stereo_sound = np.column_stack((sound, sound))
+    return pygame.sndarray.make_sound(stereo_sound)
+
+# Asteroid Boss Shrapnel shooting sound
+def create_boss_asteroid_shrapnel():
+    duration = 0.5
+    t = np.linspace(0, duration, int(44100 * duration), False)
+    shrapnel = np.random.normal(0, 0.5, int(44100 * duration)) * np.exp(-t * 10)
+    shrapnel += np.sin(2 * np.pi * 440 * t) * np.exp(-t * 20)
+    sound = np.int16(shrapnel * 16383)
+    stereo_sound = np.column_stack((sound, sound))
+    return pygame.sndarray.make_sound(stereo_sound)
+
+# Rocket Chaser Boss swoosh sound 
+def create_rocket_boss_swoosh():
+    duration = 1.0
+    t = np.linspace(0, duration, int(44100 * duration), False)
+    swoosh = np.sin(2 * np.pi * np.linspace(1000, 100, int(44100 * duration)) * t)
+    swoosh *= np.exp(-t * 3)
+    sound = np.int16(swoosh * 16383)
+    stereo_sound = np.column_stack((sound, sound))
+    return pygame.sndarray.make_sound(stereo_sound)
+
 # Create the sounds
 main_theme = create_main_theme()
 level_start_sound = create_level_start_melody()
@@ -204,33 +244,7 @@ comet_rumble = create_comet_rumble()
 magnetic_mine_beep = create_magnetic_mine_beep()
 mine_explosion_sound = create_mine_explosion_sound()
 octoboss_bubble_sound = create_octoboss_bubble()
-
-# NOT YET ADDED - fix to stereo before applying
-'''
-def sine_wave(frequency, duration, volume=0.5):
-    t = np.linspace(0, duration, int(44100 * duration), False)
-    wave = np.sin(2 * np.pi * frequency * t) * volume
-    return np.int16(wave * 32767)
-
-def create_gravity_well_rumble():
-    duration = 3.0
-    t = np.linspace(0, duration, int(44100 * duration), False)
-    rumble = np.sin(2 * np.pi * 40 * t) + 0.5 * np.sin(2 * np.pi * 80 * t)
-    rumble *= np.random.normal(1, 0.1, int(44100 * duration))
-    return pygame.sndarray.make_sound(np.int16(rumble * 16383))
-
-def create_boss_asteroid_shrapnel():
-    duration = 0.5
-    t = np.linspace(0, duration, int(44100 * duration), False)
-    shrapnel = np.random.normal(0, 0.5, int(44100 * duration)) * np.exp(-t * 10)
-    shrapnel += np.sin(2 * np.pi * 440 * t) * np.exp(-t * 20)
-    return pygame.sndarray.make_sound(np.int16(shrapnel * 16383))
-
-def create_rocket_boss_swoosh():
-    duration = 1.0
-    t = np.linspace(0, duration, int(44100 * duration), False)
-    swoosh = np.sin(2 * np.pi * np.linspace(1000, 100, int(44100 * duration)) * t)
-    swoosh *= np.exp(-t * 3)
-    return pygame.sndarray.make_sound(np.int16(swoosh * 16383))
-
-'''
+gravity_well_rumble = create_gravity_well_rumble()
+boss_asteroid_shrapnel = create_boss_asteroid_shrapnel()
+boss_explosion_sound = create_boss_explosion_sound()
+rocket_boss_swoosh = create_rocket_boss_swoosh()

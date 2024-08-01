@@ -20,7 +20,7 @@ import pygame
 import random
 
 from utils import *
-from sound import octoboss_bubble_sound
+from sound import octoboss_bubble_sound, gravity_well_rumble, rocket_boss_swoosh
 
 class Boss(GameObject):
     def __init__(self, x, y, size, health):
@@ -47,6 +47,8 @@ class BossChaser(Boss):
         self.speed = BOSSCHASER_SPEED
         self.direction = random.uniform(0, 2 * math.pi)
         self.turn_speed = BOSSCHASER_TURNRATE
+        if sound_state.on:
+            rocket_boss_swoosh.play(-1) # Play on loop
 
     def update(self, ship):
         # Calculate target direction towards the ship
@@ -248,6 +250,8 @@ class GravityWellBoss(Boss):
         self.pulse_radius = 0
         self.max_pulse_radius = 100
         self.boss_color = 255
+        if sound_state.on:
+            gravity_well_rumble.play(-1) # Play on loop
 
     # New shape
     def generate_shape(self):
