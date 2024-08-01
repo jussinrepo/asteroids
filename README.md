@@ -12,6 +12,9 @@ My third project featuring Claude 3.5 Sonnet creating the bulk of the code. Curr
 - Cheats to enable easy testing *(you need to read the source to learn them!)*
 ![image](https://github.com/user-attachments/assets/2bbfd956-e76f-4fc1-94fd-414846b06fa0)
 
+# Download a Windows build
+https://github.com/jussinrepo/asteroids/blob/main/builds/Asteroids-v1.4.exe
+
 # The project - coding without skill and depending on AI
 - Spent about 4 weeks for now, around 0-2 hours per day, total estimate around 40 hours
 - Tools used: Claude 3.5 Sonnet (coding, debugging code and idea pitching), Sublime Text 3 (first) and Visual Studio Code (later), PowerPoint (graphic design), python and pygame libraries
