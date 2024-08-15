@@ -92,13 +92,14 @@ def main():
     celebration_interval = 400  # ms between each explosion
     celebration_explosion_count = 0
     win_condition = False
+    melody_playing = False # to prevent melodies such as game_over_sound from spamming
 
     if sound_state.on:
-        main_theme.play()  # Play the game main theme melody
+        main_theme.play(-1)  # Play the game main theme melody
 
     # Reset game function is called every time a level is loaded
     def reset_game(keep_ship=False, start_level=None):
-        nonlocal ship, asteroids, bullets, ufo, ufo_bullets, ufo_spawn_timer, comet, comet_spawn_timer, magnetic_mines, mine_spawn_timer, boss, boss_dead, splinters, appendages, bubbles, particle_system, explosions, celebration_explosions, celebration_explosion_count, level_complete_timer, win_condition, score, powerups, powerup_manager
+        nonlocal ship, asteroids, bullets, ufo, ufo_bullets, ufo_spawn_timer, comet, comet_spawn_timer, magnetic_mines, mine_spawn_timer, boss, boss_dead, splinters, appendages, bubbles, particle_system, explosions, celebration_explosions, celebration_explosion_count, level_complete_timer, win_condition, score, powerups, powerup_manager, melody_playing
 
         if not keep_ship: # reset everything when player starts a new game from menu
             ship = Ship()
@@ -128,6 +129,7 @@ def main():
         celebration_explosion_count = 0
         level_complete_timer = None
         win_condition = False
+        melody_playing = False
         
         if start_level is not None:
             level_manager.current_level = start_level - 1  # Subtract 1 because levels are 0-indexed
@@ -990,7 +992,9 @@ def main():
                 else:
                     text = font.render("GAME OVER", True, RED)
                     if sound_state.on:
-                        game_over_sound.play()  # Play the game over sound
+                        if not melody_playing:
+                            game_over_sound.play() # Play the game over sound
+                            melody_playing = True
                         if comet:
                             comet_rumble.stop()
                         if isinstance(boss, GravityWellBoss):
