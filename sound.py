@@ -62,6 +62,82 @@ def create_main_theme(volume=0.4):
     stereo_theme = np.column_stack((theme, theme))
     return pygame.sndarray.make_sound(stereo_theme)
 
+
+# Alternavite melodies
+# Upbeat Space Adventure
+def create_main_theme_2(volume=0.4):
+    tempo = 140
+    
+    melody_sequence = [
+        ('C4', 1), ('E4', 1), ('G4', 1), ('C5', 1),
+        ('B4', 1), ('G4', 1), ('E4', 1), ('C4', 1),
+        ('F4', 1), ('A4', 1), ('C5', 1), ('F5', 1),
+        ('E5', 1), ('C5', 1), ('A4', 1), ('F4', 1)
+    ]
+    
+    bass_sequence = [
+        ('C3', 2), ('G3', 2), ('F3', 2), ('C3', 2),
+        ('A3', 2), ('F3', 2), ('G3', 2), ('C3', 2)
+    ]
+
+    theme = create_melody(melody_sequence, bass_sequence, tempo)
+    theme = np.int16(theme * 32767 * volume)
+    stereo_theme = np.column_stack((theme, theme))
+    return pygame.sndarray.make_sound(stereo_theme)
+
+# Mysterious Space Exploration
+def create_main_theme_3(volume=0.4):
+    tempo = 100
+    
+    melody_sequence = [
+        ('E4', 1.5), ('G4', 0.5), ('A4', 1.5), ('B4', 0.5),
+        ('C5', 2), ('R', 1), ('D5', 1),
+        ('B4', 1.5), ('G4', 0.5), ('A4', 1.5), ('F#4', 0.5),
+        ('E4', 2), ('R', 2)
+    ]
+    
+    bass_sequence = [
+        ('E3', 3), ('A3', 3), ('C3', 2), 
+        ('G3', 3), ('D3', 3), ('E3', 2)
+    ]
+
+    theme = create_melody(melody_sequence, bass_sequence, tempo)
+    theme = np.int16(theme * 32767 * volume)
+    stereo_theme = np.column_stack((theme, theme))
+    return pygame.sndarray.make_sound(stereo_theme)
+
+# Epic Space Battle
+def create_main_theme_4(volume=0.4):
+    tempo = 160
+    
+    melody_sequence = [
+        ('C4', 0.5), ('C4', 0.5), ('G4', 1), ('F4', 0.5), ('E4', 0.5), ('D4', 1),
+        ('C4', 0.5), ('C4', 0.5), ('A4', 1), ('G4', 0.5), ('F4', 0.5), ('E4', 1),
+        ('D4', 0.5), ('D4', 0.5), ('B4', 1), ('A4', 0.5), ('G4', 0.5), ('F4', 1),
+        ('E4', 0.5), ('E4', 0.5), ('C5', 1), ('B4', 0.5), ('A4', 0.5), ('G4', 1)
+    ]
+    
+    bass_sequence = [
+        ('C3', 2), ('F3', 2), ('G3', 2), ('C3', 2),
+        ('A2', 2), ('D3', 2), ('G3', 2), ('C3', 2)
+    ]
+
+    theme = create_melody(melody_sequence, bass_sequence, tempo)
+    theme = np.int16(theme * 32767 * volume)
+    stereo_theme = np.column_stack((theme, theme))
+    return pygame.sndarray.make_sound(stereo_theme)
+
+# Unfinished Song
+def create_unfinished_song(volume=0.4):
+    tempo = 90
+    
+    melody_sequence = [('C5', 0.25), ('R', 0.25), ('C5', 0.25), ('R', 0.25), ('G5', 0.25), ('R', 0.25), ('G5', 0.25), ('R', 0.25), ('A5', 0.25), ('R', 0.25), ('A5', 0.25), ('R', 0.25), ('G5', 0.75), ('R', 0.75), ('F5', 0.25), ('R', 0.25), ('F5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('D5', 0.25), ('R', 0.25), ('D5', 0.25), ('R', 0.25), ('C5', 0.5), ('R', 0.75), ('G5', 0.25), ('R', 0.25), ('G5', 0.25), ('R', 0.25), ('F5', 0.25), ('R', 0.25), ('F5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('D5', 0.75), ('R', 0.75), ('G5', 0.25), ('R', 0.25), ('G5', 0.25), ('R', 0.25), ('F5', 0.25), ('R', 0.25), ('F5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('D5', 0.75), ('R', 0.5), ('C5', 0.25), ('R', 0.25), ('C5', 0.25), ('R', 0.25), ('G5', 0.25), ('R', 0.5), ('G5', 0.25), ('R', 0.5), ('A5', 0.25), ('R', 0.25), ('C6', 0.25), ('R', 0.25), ('A5', 0.25), ('R', 0.25), ('G5', 0.75), ('R', 0.5), ('F5', 0.5), ('R', 0.25), ('F5', 0.25), ('R', 0.5), ('E5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.5), ('D5', 0.25), ('R', 0.25), ('D5', 0.25), ('R', 0.25), ('E5', 0.25), ('R', 0.25), ('D5', 0.25), ('R', 0.25), ('C5', 0.75), ('R', 0.75), ('C6', 0.5)]
+
+    theme = create_melody(melody_sequence, [], tempo)
+    theme = np.int16(theme * 32767 * volume)
+    stereo_theme = np.column_stack((theme, theme))
+    return pygame.sndarray.make_sound(stereo_theme)
+
 # Level start melody
 def create_level_start_melody(volume=0.5):
     tempo = 160
@@ -288,6 +364,10 @@ def create_rocket_boss_swoosh():
 
 # Create the melodies
 main_theme = create_main_theme()
+main_theme_2 = create_main_theme_2()
+main_theme_3 = create_main_theme_3()
+main_theme_4 = create_main_theme_4()
+unfinished_song = create_unfinished_song()
 level_start_sound = create_level_start_melody()
 level_complete_sound = create_level_complete_melody()
 game_over_sound = create_game_over_melody()
@@ -311,55 +391,3 @@ gravity_well_rumble = create_gravity_well_rumble()
 boss_asteroid_shrapnel = create_boss_asteroid_shrapnel()
 boss_explosion_sound = create_boss_explosion_sound()
 rocket_boss_swoosh = create_rocket_boss_swoosh()
-
-''' Alternavite melodies
-
-# Upbeat Space Adventure
-def create_main_theme_1(volume=0.4):
-    tempo = 140
-    
-    melody_sequence = [
-        ('C4', 1), ('E4', 1), ('G4', 1), ('C5', 1),
-        ('B4', 1), ('G4', 1), ('E4', 1), ('C4', 1),
-        ('F4', 1), ('A4', 1), ('C5', 1), ('F5', 1),
-        ('E5', 1), ('C5', 1), ('A4', 1), ('F4', 1)
-    ]
-    
-    bass_sequence = [
-        ('C3', 2), ('G3', 2), ('F3', 2), ('C3', 2),
-        ('A3', 2), ('F3', 2), ('G3', 2), ('C3', 2)
-    ]
-
-# Mysterious Space Exploration
-def create_main_theme_2(volume=0.4):
-    tempo = 100
-    
-    melody_sequence = [
-        ('E4', 1.5), ('G4', 0.5), ('A4', 1.5), ('B4', 0.5),
-        ('C5', 2), ('R', 1), ('D5', 1),
-        ('B4', 1.5), ('G4', 0.5), ('A4', 1.5), ('F#4', 0.5),
-        ('E4', 2), ('R', 2)
-    ]
-    
-    bass_sequence = [
-        ('E3', 3), ('A3', 3), ('C3', 2), 
-        ('G3', 3), ('D3', 3), ('E3', 2)
-    ]
-
-# Epic Space Battle
-def create_main_theme_3(volume=0.4):
-    tempo = 160
-    
-    melody_sequence = [
-        ('C4', 0.5), ('C4', 0.5), ('G4', 1), ('F4', 0.5), ('E4', 0.5), ('D4', 1),
-        ('C4', 0.5), ('C4', 0.5), ('A4', 1), ('G4', 0.5), ('F4', 0.5), ('E4', 1),
-        ('D4', 0.5), ('D4', 0.5), ('B4', 1), ('A4', 0.5), ('G4', 0.5), ('F4', 1),
-        ('E4', 0.5), ('E4', 0.5), ('C5', 1), ('B4', 0.5), ('A4', 0.5), ('G4', 1)
-    ]
-    
-    bass_sequence = [
-        ('C3', 2), ('F3', 2), ('G3', 2), ('C3', 2),
-        ('A2', 2), ('D3', 2), ('G3', 2), ('C3', 2)
-    ]
-
-'''
