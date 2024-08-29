@@ -1,4 +1,6 @@
+![Asteroids-gameplay](https://github.com/user-attachments/assets/97534421-6ab3-475a-99db-1cc19dfa0b97)
 # Asteroids - a space shooter game created with AI assistance
+
 ![image](https://github.com/user-attachments/assets/a7298428-d780-4e3f-afc3-51529bdce089)
 
 My third project featuring Claude 3.5 Sonnet creating the bulk of the code. Current features
